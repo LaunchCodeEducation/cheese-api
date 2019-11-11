@@ -1,21 +1,21 @@
 package org.launchcode.cheeseapi.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.Size;
-import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -23,20 +23,21 @@ import javax.validation.constraints.Pattern;
 @Setter
 @EqualsAndHashCode
 @Table(name = "cheeses")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Cheese {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  @Size(min = 3, max = 20, message = "name must be between 3 and 20 characters")
-  @Pattern(regexp = "[A-Za-z ]+", message = "name must only contain alphabetic characters")
   private String name;
+
+  private String description;
 
   @JsonBackReference
   @ManyToOne(optional = false, fetch = FetchType.EAGER)
   private Category category;
 
-  @Transient
-  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-  private long categoryId;
+  @JsonBackReference
+  @ManyToMany(mappedBy = "cheeses", fetch = FetchType.EAGER)
+  private List<Menu> menus = new ArrayList<>();
 }
