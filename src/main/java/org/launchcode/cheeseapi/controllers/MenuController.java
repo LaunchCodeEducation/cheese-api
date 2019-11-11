@@ -1,9 +1,9 @@
 package org.launchcode.cheeseapi.controllers;
 
+import org.launchcode.cheeseapi.controllers.utils.ResponseUtils;
 import org.launchcode.cheeseapi.models.DTOs.MenuCheeseDTO;
 import org.launchcode.cheeseapi.models.DTOs.MenuDTO;
 import org.launchcode.cheeseapi.services.MenuService;
-import org.launchcode.cheeseapi.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

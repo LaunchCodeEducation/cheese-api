@@ -1,9 +1,9 @@
 package org.launchcode.cheeseapi.controllers;
 
+import org.launchcode.cheeseapi.controllers.utils.ResponseUtils;
 import org.launchcode.cheeseapi.models.Cheese;
 import org.launchcode.cheeseapi.models.DTOs.CheeseDTO;
 import org.launchcode.cheeseapi.services.CheeseService;
-import org.launchcode.cheeseapi.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
