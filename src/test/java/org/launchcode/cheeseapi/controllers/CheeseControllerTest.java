@@ -11,7 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -46,7 +46,7 @@ public class CheeseControllerTest {
     mockRequest.perform(
         post(cheesesEndpoint)
             .contentType(MediaType.APPLICATION_JSON)
-            .content("{ \"name\": \"test\", \"categoryId\":" + category.getId() + "}")
+            .content("{ \"name\": \"test cheese\", \"description\": \"test description\", \"categoryId\":" + category.getId() + "}")
     ).andExpect(status().isOk());
 
     assertEquals(1, cheeseRepository.count());

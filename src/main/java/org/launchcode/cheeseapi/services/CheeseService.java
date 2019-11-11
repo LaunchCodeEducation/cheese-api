@@ -2,6 +2,7 @@ package org.launchcode.cheeseapi.services;
 
 import org.launchcode.cheeseapi.models.Category;
 import org.launchcode.cheeseapi.models.Cheese;
+import org.launchcode.cheeseapi.models.DTOs.CheeseDTO;
 import org.launchcode.cheeseapi.repositories.CategoryRepository;
 import org.launchcode.cheeseapi.repositories.CheeseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,15 @@ public class CheeseService {
   @Autowired
   private CategoryRepository categoryRepository;
 
-  public Cheese createCheese(Cheese cheeseData) {
-    Category category = categoryRepository.getOne(cheeseData.getCategoryId());
+  public Cheese createCheese(CheeseDTO cheeseDTO) {
+    Category category = categoryRepository.getOne(cheeseDTO.getCategoryId());
 
-    cheeseData.setCategory(category);
-    Cheese newCheese = cheeseRepository.save(cheeseData);
+    Cheese newCheese = new Cheese();
+    newCheese.setCategory(category);
+    newCheese.setName(cheeseDTO.getName());
+    newCheese.setDescription(cheeseDTO.getDescription());
+
+    newCheese = cheeseRepository.save(newCheese);
 
     category.getCheeses().add(newCheese);
     categoryRepository.save(category);

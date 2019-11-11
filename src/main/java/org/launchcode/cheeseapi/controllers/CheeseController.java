@@ -1,6 +1,7 @@
 package org.launchcode.cheeseapi.controllers;
 
 import org.launchcode.cheeseapi.models.Cheese;
+import org.launchcode.cheeseapi.models.DTOs.CheeseDTO;
 import org.launchcode.cheeseapi.services.CheeseService;
 import org.launchcode.cheeseapi.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,12 @@ public class CheeseController {
 
 
   @PostMapping(consumes = "application/json", produces = "application/json") // Create
-  public ResponseEntity createCheese(@Valid @RequestBody Cheese cheeseData, Errors errors) {
+  public ResponseEntity createCheese(@Valid @RequestBody CheeseDTO cheeseDTO, Errors errors) {
     if (errors.hasFieldErrors()) {
       return ResponseUtils.buildFieldErrorResponseEntity(errors);
     }
 
-    Cheese newCheese = cheeseService.createCheese(cheeseData);
+    Cheese newCheese = cheeseService.createCheese(cheeseDTO);
     return ResponseEntity.ok(newCheese);
   }
 
