@@ -3,6 +3,8 @@ package org.launchcode.cheeseapi.controllers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.launchcode.cheeseapi.IntegrationTestConfig;
+import org.launchcode.cheeseapi.models.Category;
+import org.launchcode.cheeseapi.repositories.CategoryRepository;
 import org.launchcode.cheeseapi.repositories.CheeseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,6 +23,9 @@ public class CheeseControllerTest {
   private CheeseRepository cheeseRepository;
 
   @Autowired
+  private CategoryRepository categoryRepository;
+
+  @Autowired
   private MockMvc mockRequest;
 
   @Test
@@ -32,10 +37,14 @@ public class CheeseControllerTest {
   public void testCreateCheese() throws Exception {
     assertEquals(0, cheeseRepository.count());
 
+    Category category = new Category();
+    category.setName("test category");
+    category = categoryRepository.save(category);
+
     mockRequest.perform(
         post("/cheeses")
             .contentType(MediaType.APPLICATION_JSON)
-            .content("{ \"name\": \"test\"}")
+            .content("{ \"name\": \"test\", \"categoryId\":" + category.getId() + "}")
     ).andExpect(status().isOk());
 
     assertEquals(1, cheeseRepository.count());
