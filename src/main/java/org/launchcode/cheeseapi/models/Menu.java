@@ -29,6 +29,8 @@ public class Menu {
 
   private String name;
 
+  private String description;
+
   @JsonManagedReference
   @ManyToMany(cascade = CascadeType.ALL)
   /*

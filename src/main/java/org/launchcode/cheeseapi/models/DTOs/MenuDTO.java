@@ -1,4 +1,4 @@
 package org.launchcode.cheeseapi.models.DTOs;
 
-public class MenuDTO extends NamedEntityDTO {
+public class MenuDTO extends NameAndDescriptionEntityDTO {
 }
