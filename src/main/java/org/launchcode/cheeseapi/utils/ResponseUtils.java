@@ -30,7 +30,7 @@ public class ResponseUtils {
     return fieldErrors;
   }
 
-  public static ResponseEntity buildFieldErrorResponseEntity (Errors errors) {
+  public static ResponseEntity buildFieldErrorResponseEntity(Errors errors) {
     Map<String, Map<String, List<String>>> body = new HashMap<>();
 
     body.put("fieldErrors", buildFieldErrors(errors));
