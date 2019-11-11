@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ResponseUtils {
-  public static ResponseEntity<Map<String, Map<String, List<String>>>> buildFieldErrorResponseEntity (Errors errors) {
-    Map<String, Map<String, List<String>>> body = new HashMap<>();
+  private static Map<String, List<String>> buildFieldErrors(Errors errors) {
     Map<String, List<String>> fieldErrors = new HashMap<>();
 
     for (FieldError fieldError : errors.getFieldErrors()) {
@@ -28,9 +27,13 @@ public class ResponseUtils {
       fieldErrors.put(fieldName, fieldValidationErrorMessages);
     }
 
+    return fieldErrors;
+  }
 
+  public static ResponseEntity buildFieldErrorResponseEntity (Errors errors) {
+    Map<String, Map<String, List<String>>> body = new HashMap<>();
 
-    body.put("fieldErrors", fieldErrors);
+    body.put("fieldErrors", buildFieldErrors(errors));
 
     return ResponseEntity.status(400).body(body);
   }
