@@ -17,6 +17,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTestConfig
 @RunWith(SpringRunner.class)
 public class CheeseControllerTest {
+  private static final String cheesesEndpoint = "/cheeses";
+
   @Autowired
   private CheeseRepository cheeseRepository;
 
@@ -25,7 +27,7 @@ public class CheeseControllerTest {
 
   @Test
   public void testGetCheeses() throws Exception {
-    mockRequest.perform(get("/cheeses")).andExpect(status().isOk());
+    mockRequest.perform(get(cheesesEndpoint)).andExpect(status().isOk());
   }
 
   @Test
@@ -33,7 +35,7 @@ public class CheeseControllerTest {
     assertEquals(0, cheeseRepository.count());
 
     mockRequest.perform(
-        post("/cheeses")
+        post(cheesesEndpoint)
             .contentType(MediaType.APPLICATION_JSON)
             .content("{ \"name\": \"test\"}")
     ).andExpect(status().isOk());

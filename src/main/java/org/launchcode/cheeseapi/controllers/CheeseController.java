@@ -15,14 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController() // @Controller + @ResponseBody on all route handler methods
-// set the route path, validates accepted request body MIME type, sets response content-type header
+@RestController()
 @RequestMapping("/cheeses")
 public class CheeseController {
   @Autowired
   private CheeseRepository cheeseRepository;
 
-  @PostMapping(consumes = "application/json", produces = "application/json") // Create
+  @PostMapping(consumes = "application/json", produces = "application/json")
   public ResponseEntity createCheese(@Valid @RequestBody Cheese newCheese, Errors errors) {
     if (errors.hasErrors()) {
       return ResponseUtils.buildFieldErrorResponseEntity(errors);
@@ -31,7 +30,7 @@ public class CheeseController {
     return ResponseEntity.ok(cheeseRepository.save(newCheese));
   }
 
-  @GetMapping() // Read
+  @GetMapping()
   public List<Cheese> getCheeses() {
     return cheeseRepository.findAll();
   }

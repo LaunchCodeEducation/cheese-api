@@ -21,7 +21,7 @@ public class CategoryController {
   @Autowired
   private CategoryRepository categoryRepository;
 
-  @PostMapping(consumes = "application/json", produces = "application/json") // Create
+  @PostMapping(consumes = "application/json", produces = "application/json")
   public ResponseEntity createCategory(@Valid @RequestBody Category newCategory, Errors errors) {
     if (errors.hasErrors()) {
       return ResponseUtils.buildFieldErrorResponseEntity(errors);
@@ -30,7 +30,7 @@ public class CategoryController {
     return ResponseEntity.ok(categoryRepository.save(newCategory));
   }
 
-  @GetMapping() // Read
+  @GetMapping()
   public List<Category> getCategories() {
     return categoryRepository.findAll();
   }
