@@ -1,9 +1,11 @@
 package org.launchcode.cheeseapi.controllers;
 
 import org.launchcode.cheeseapi.models.Category;
-import org.launchcode.cheeseapi.repositories.CategoryRepository;
+import org.launchcode.cheeseapi.models.DTOs.CategoryDTO;
+import org.launchcode.cheeseapi.services.CategoryService;
 import org.launchcode.cheeseapi.utils.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,19 +21,19 @@ import java.util.List;
 @RequestMapping("/categories")
 public class CategoryController {
   @Autowired
-  private CategoryRepository categoryRepository;
+  private CategoryService categoryService;
 
-  @PostMapping(consumes = "application/json", produces = "application/json")
-  public ResponseEntity createCategory(@Valid @RequestBody Category newCategory, Errors errors) {
+  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity createCategory(@Valid @RequestBody CategoryDTO categoryDTO, Errors errors) {
     if (errors.hasErrors()) {
       return ResponseUtils.buildFieldErrorResponseEntity(errors);
     }
 
-    return ResponseEntity.ok(categoryRepository.save(newCategory));
+    return ResponseEntity.ok(categoryService.createCategory(categoryDTO));
   }
 
   @GetMapping()
   public List<Category> getCategories() {
-    return categoryRepository.findAll();
+    return categoryService.getAllCategories();
   }
 }
