@@ -9,8 +9,11 @@ import org.launchcode.cheeseapi.repositories.MenuRepository;
 
 public class TestHelper {
   public static String menuName = "test menu";
+
   public static String cheeseName = "test cheese";
+
   public static String categoryName = "test category";
+
   public static String description = "test description";
 
   public static Cheese createCheese(Category category, CheeseRepository cheeseRepository) {

@@ -8,5 +8,4 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
-public interface CategoryRepository extends JpaRepository<Category, Long> {
-}
+public interface CategoryRepository extends JpaRepository<Category, Long> {}

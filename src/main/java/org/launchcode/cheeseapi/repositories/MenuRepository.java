@@ -8,5 +8,4 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
-public interface MenuRepository extends JpaRepository<Menu, Long> {
-}
+public interface MenuRepository extends JpaRepository<Menu, Long> {}

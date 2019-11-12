@@ -1,9 +1,9 @@
 package org.launchcode.cheeseapi.services;
 
 import org.launchcode.cheeseapi.models.Cheese;
-import org.launchcode.cheeseapi.models.Menu;
 import org.launchcode.cheeseapi.models.DTOs.MenuCheeseDTO;
 import org.launchcode.cheeseapi.models.DTOs.MenuDTO;
+import org.launchcode.cheeseapi.models.Menu;
 import org.launchcode.cheeseapi.repositories.CheeseRepository;
 import org.launchcode.cheeseapi.repositories.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +35,7 @@ public class MenuService {
   }
 
   public void addCheeseToMenu(Long menuId, MenuCheeseDTO menuCheeseDTO) {
-    Menu menu = menuRepository
-        .findById(menuId)
-        .orElseThrow(EntityNotFoundException::new);
+    Menu menu = menuRepository.findById(menuId).orElseThrow(EntityNotFoundException::new);
 
     Cheese cheese = cheeseRepository
         .findById(menuCheeseDTO.getCheeseId())

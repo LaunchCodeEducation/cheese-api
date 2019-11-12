@@ -1,6 +1,5 @@
 package org.launchcode.cheeseapi.models.DTOs;
 
-
 import lombok.Getter;
 import lombok.Setter;
 

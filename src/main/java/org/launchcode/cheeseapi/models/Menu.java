@@ -39,6 +39,6 @@ public class Menu {
    * since only { name: "" } is sent it fails with this completely unhelpful error
    * https://stackoverflow.com/a/34417678
    * */
-//  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  //  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private List<Cheese> cheeses = new ArrayList<>();
 }

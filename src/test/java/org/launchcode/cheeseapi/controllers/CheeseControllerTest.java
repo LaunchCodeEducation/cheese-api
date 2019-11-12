@@ -24,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTestConfig
 @RunWith(SpringRunner.class)
 public class CheeseControllerTest {
-
   @Autowired
   private CheeseRepository cheeseRepository;
 

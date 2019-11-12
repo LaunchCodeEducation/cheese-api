@@ -1,6 +1,5 @@
 package org.launchcode.cheeseapi;
 
-
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,5 +14,4 @@ import java.lang.annotation.Target;
 @AutoConfigureMockMvc
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface IntegrationTestConfig {
-}
+public @interface IntegrationTestConfig {}

@@ -20,7 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTestConfig
 @RunWith(SpringRunner.class)
 public class CategoryControllerTest {
-
   @Autowired
   private CategoryRepository categoryRepository;
 

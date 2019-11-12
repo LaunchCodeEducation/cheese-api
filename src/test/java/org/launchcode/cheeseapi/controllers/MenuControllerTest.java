@@ -50,8 +50,8 @@ public class MenuControllerTest {
 
     mockRequest
         .perform(post(MenuController.ENDPOINT)
-                     .contentType(MediaType.APPLICATION_JSON)
-                     .content(postBody)).andExpect(status().isOk());
+                     .contentType(MediaType.APPLICATION_JSON).content(postBody))
+        .andExpect(status().isOk());
 
     assertEquals(1, menuRepository.count());
   }

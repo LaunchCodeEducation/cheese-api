@@ -8,5 +8,4 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
-public interface CheeseRepository extends JpaRepository<Cheese, Long> {
-}
+public interface CheeseRepository extends JpaRepository<Cheese, Long> {}

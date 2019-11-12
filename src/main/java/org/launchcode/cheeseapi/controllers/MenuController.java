@@ -42,7 +42,9 @@ public class MenuController {
   }
 
   @PutMapping(value = "/{menuId}/cheeses", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity addCheeseToMenu(@PathVariable Long menuId, @RequestBody MenuCheeseDTO menuCheeseDTO) {
+  public ResponseEntity addCheeseToMenu(
+      @PathVariable Long menuId, @RequestBody MenuCheeseDTO menuCheeseDTO
+  ) {
 
     try {
       menuService.addCheeseToMenu(menuId, menuCheeseDTO);
