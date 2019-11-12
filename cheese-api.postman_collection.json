@@ -1,0 +1,240 @@
+{
+  "info": {
+    "_postman_id": "9582b515-bbc3-41a2-afa2-018862480dcf",
+    "name": "cheese-api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "cheeses",
+      "item": [
+        {
+          "name": "get cheeses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/cheeses",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cheeses"
+              ]
+            },
+            "description": "GET /cheeses"
+          },
+          "response": []
+        },
+        {
+          "name": "create cheese",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"test cheese\",\n    \"description\": \"test description\",\n    \"categoryId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{cheesesEndpoint}}",
+              "host": [
+                "{{cheesesEndpoint}}"
+              ]
+            },
+            "description": "POST /cheeses"
+          },
+          "response": []
+        },
+        {
+          "name": "delete cheese",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "categories",
+      "item": [
+        {
+          "name": "get categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{categoriesEndpoint}}",
+              "host": [
+                "{{categoriesEndpoint}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"test category\"\n}"
+            },
+            "url": {
+              "raw": "{{categoriesEndpoint}}",
+              "host": [
+                "{{categoriesEndpoint}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "menus",
+      "item": [
+        {
+          "name": "get menus",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{menusEndpoint}}",
+              "host": [
+                "{{menusEndpoint}}"
+              ]
+            },
+            "description": "GET /menus"
+          },
+          "response": []
+        },
+        {
+          "name": "create menu",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"test menu\",\n    \"description\": \"test description\"\n}"
+            },
+            "url": {
+              "raw": "{{menusEndpoint}}",
+              "host": [
+                "{{menusEndpoint}}"
+              ]
+            },
+            "description": "POST /menus"
+          },
+          "response": []
+        },
+        {
+          "name": "add cheese to menu",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "name": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"cheeseId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{menusEndpoint}}/1/cheeses",
+              "host": [
+                "{{menusEndpoint}}"
+              ],
+              "path": [
+                "1",
+                "cheeses"
+              ]
+            },
+            "description": "POST /menus/{menuID}/cheeses"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "cf75737b-5f66-4716-80a0-fd93019f3b26",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "de723374-934f-42e2-9968-ff4721014626",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "id": "db55f3c5-5401-4766-a7cc-8ed7b91b7536",
+      "key": "apiURL",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "id": "fd3d3208-312f-4540-9c3a-ee02b413fc22",
+      "key": "cheesesEndpoint",
+      "value": "{{apiURL}}/cheeses",
+      "type": "string"
+    },
+    {
+      "id": "edc26795-081c-474c-a2c5-2bd8a0db558a",
+      "key": "categoriesEndpoint",
+      "value": "{{apiURL}}/categories",
+      "type": "string"
+    },
+    {
+      "id": "c7aec1f6-7ce5-441d-9d05-3a2ab3b42aa7",
+      "key": "menusEndpoint",
+      "value": "{{apiURL}}/menus",
+      "type": "string"
+    }
+  ]
+}
