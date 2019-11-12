@@ -3,12 +3,12 @@ package org.launchcode.cheeseapi.controllers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.launchcode.cheeseapi.IntegrationTestConfig;
-import org.launchcode.cheeseapi.models.Category;
 import org.launchcode.cheeseapi.models.Cheese;
 import org.launchcode.cheeseapi.models.Menu;
 import org.launchcode.cheeseapi.repositories.CategoryRepository;
 import org.launchcode.cheeseapi.repositories.CheeseRepository;
 import org.launchcode.cheeseapi.repositories.MenuRepository;
+import org.launchcode.cheeseapi.utils.TestHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -37,6 +37,8 @@ public class MenuControllerTest {
 
   @Test
   public void getMenus() throws Exception {
+    Menu menu = new Menu();
+    menu.setName("test menu");
     mockRequest.perform(get(MenuController.ENDPOINT)).andExpect(status().isOk());
   }
 
@@ -44,35 +46,27 @@ public class MenuControllerTest {
   public void createMenu() throws Exception {
     assertEquals(0, menuRepository.count());
 
+    String postBody = "{ \"name\": \"test menu\", \"description\": \"test description\" }";
+
     mockRequest
         .perform(post(MenuController.ENDPOINT)
-            .contentType(MediaType.APPLICATION_JSON)
-            .content("{ \"name\": \"test menu\", \"description\": \"test description\" }")
-        ).andExpect(status().isOk());
+                     .contentType(MediaType.APPLICATION_JSON)
+                     .content(postBody)).andExpect(status().isOk());
 
     assertEquals(1, menuRepository.count());
   }
 
   @Test
   public void addCheeseToMenu() throws Exception {
-    Category category = new Category();
-    category.setName("test category");
-    category = categoryRepository.save(category);
-
-    Cheese cheese = new Cheese();
-    cheese.setName("test cheese");
-    cheese.setCategory(category);
-    cheese = cheeseRepository.save(cheese);
-
-    Menu menu = new Menu();
-    menu.setName("test menu");
-    menu = menuRepository.save(menu);
+    Menu menu = TestHelper.createMenu(menuRepository);
+    Cheese cheese = TestHelper.createCheese(cheeseRepository, categoryRepository);
 
     String addCheeseEndpoint = MenuController.ENDPOINT + "/" + menu.getId() + "/cheeses";
 
-    mockRequest.perform(put(addCheeseEndpoint)
-        .contentType(MediaType.APPLICATION_JSON)
-        .content("{\"cheeseId\":" + cheese.getId() + "}")
-    ).andExpect(status().isNoContent());
+    mockRequest
+        .perform(put(addCheeseEndpoint)
+                     .contentType(MediaType.APPLICATION_JSON)
+                     .content("{\"cheeseId\":" + cheese.getId() + "}"))
+        .andExpect(status().isNoContent());
   }
 }
