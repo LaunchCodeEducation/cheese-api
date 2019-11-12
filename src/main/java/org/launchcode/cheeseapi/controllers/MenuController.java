@@ -1,6 +1,6 @@
 package org.launchcode.cheeseapi.controllers;
 
-import org.launchcode.cheeseapi.controllers.utils.ResponseUtils;
+import org.launchcode.cheeseapi.controllers.utils.ResponseHelper;
 import org.launchcode.cheeseapi.models.DTOs.MenuCheeseDTO;
 import org.launchcode.cheeseapi.models.DTOs.MenuDTO;
 import org.launchcode.cheeseapi.services.MenuService;
@@ -35,7 +35,7 @@ public class MenuController {
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity createMenu(@Valid @RequestBody MenuDTO menuDTO, Errors errors) {
     if (errors.hasFieldErrors()) {
-      return ResponseUtils.buildFieldErrorResponseEntity(errors);
+      return ResponseHelper.buildFieldErrorResponse(errors);
     }
 
     return ResponseEntity.ok(menuService.createMenu(menuDTO));

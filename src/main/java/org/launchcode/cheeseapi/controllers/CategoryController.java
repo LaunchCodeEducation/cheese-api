@@ -1,6 +1,6 @@
 package org.launchcode.cheeseapi.controllers;
 
-import org.launchcode.cheeseapi.controllers.utils.ResponseUtils;
+import org.launchcode.cheeseapi.controllers.utils.ResponseHelper;
 import org.launchcode.cheeseapi.models.Category;
 import org.launchcode.cheeseapi.models.DTOs.CategoryDTO;
 import org.launchcode.cheeseapi.services.CategoryService;
@@ -17,23 +17,25 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController()
-@RequestMapping("/categories")
+@RestController
+@RequestMapping(value = CategoryController.ENDPOINT, produces = MediaType.APPLICATION_JSON_VALUE)
 public class CategoryController {
+  public static final String ENDPOINT = "/categories";
+
   @Autowired
   private CategoryService categoryService;
 
-  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping
+  public List<Category> getCategories() {
+    return categoryService.getAllCategories();
+  }
+
+  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity createCategory(@Valid @RequestBody CategoryDTO categoryDTO, Errors errors) {
     if (errors.hasErrors()) {
-      return ResponseUtils.buildFieldErrorResponseEntity(errors);
+      return ResponseHelper.buildFieldErrorResponse(errors);
     }
 
     return ResponseEntity.ok(categoryService.createCategory(categoryDTO));
-  }
-
-  @GetMapping()
-  public List<Category> getCategories() {
-    return categoryService.getAllCategories();
   }
 }

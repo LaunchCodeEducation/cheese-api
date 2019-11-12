@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ResponseUtils {
+public class ResponseHelper {
   private static Map<String, List<String>> buildFieldErrors(Errors errors) {
     Map<String, List<String>> fieldErrors = new HashMap<>();
 
@@ -30,7 +30,7 @@ public class ResponseUtils {
     return fieldErrors;
   }
 
-  public static ResponseEntity buildFieldErrorResponseEntity(Errors errors) {
+  public static ResponseEntity buildFieldErrorResponse(Errors errors) {
     Map<String, Map<String, List<String>>> body = new HashMap<>();
 
     body.put("fieldErrors", buildFieldErrors(errors));

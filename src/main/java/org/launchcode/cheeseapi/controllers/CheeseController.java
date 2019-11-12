@@ -1,6 +1,6 @@
 package org.launchcode.cheeseapi.controllers;
 
-import org.launchcode.cheeseapi.controllers.utils.ResponseUtils;
+import org.launchcode.cheeseapi.controllers.utils.ResponseHelper;
 import org.launchcode.cheeseapi.models.Cheese;
 import org.launchcode.cheeseapi.models.DTOs.CheeseDTO;
 import org.launchcode.cheeseapi.services.CheeseService;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
-
 @RestController
 @RequestMapping(value = CheeseController.ENDPOINT, produces = MediaType.APPLICATION_JSON_VALUE)
 public class CheeseController {
@@ -28,22 +27,19 @@ public class CheeseController {
   @Autowired
   private CheeseService cheeseService;
 
-
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity createCheese(@Valid @RequestBody CheeseDTO cheeseDTO, Errors errors) {
     if (errors.hasFieldErrors()) {
-      return ResponseUtils.buildFieldErrorResponseEntity(errors);
+      return ResponseHelper.buildFieldErrorResponse(errors);
     }
 
-    Cheese newCheese = cheeseService.createCheese(cheeseDTO);
-    return ResponseEntity.ok(newCheese);
+    return ResponseEntity.ok(cheeseService.createCheese(cheeseDTO));
   }
 
   @GetMapping
   public List<Cheese> getAllCheeses() {
     return cheeseService.getAllCheeses();
   }
-
 
   @DeleteMapping(value = "/{cheeseId}")
   public ResponseEntity deleteCheese(@PathVariable long cheeseId) {
