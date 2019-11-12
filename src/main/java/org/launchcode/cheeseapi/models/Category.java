@@ -1,7 +1,7 @@
 package org.launchcode.cheeseapi.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,7 +29,7 @@ public class Category {
 
   private String name;
 
-  @JsonManagedReference
+  @JsonBackReference
   @OneToMany(fetch = FetchType.LAZY)
   private List<Cheese> cheeses = new ArrayList<>(); // prevent NPE when not yet fetched
 }

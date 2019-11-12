@@ -2,6 +2,7 @@ package org.launchcode.cheeseapi.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,7 +34,7 @@ public class Cheese {
 
   private String description;
 
-  @JsonBackReference
+  @JsonManagedReference
   @ManyToOne(optional = false, fetch = FetchType.EAGER)
   private Category category;
 

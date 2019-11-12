@@ -39,4 +39,8 @@ public class CheeseService {
   public List<Cheese> getAllCheeses() {
     return cheeseRepository.findAll();
   }
+
+  public void deleteCheese(long cheeseId) {
+    cheeseRepository.deleteById(cheeseId);
+  }
 }
