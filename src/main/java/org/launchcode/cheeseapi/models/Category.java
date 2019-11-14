@@ -30,6 +30,10 @@ public class Category {
   private String name;
 
   @JsonBackReference
-  @OneToMany(fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
   private List<Cheese> cheeses = new ArrayList<>(); // prevent NPE when not yet fetched
+
+  public void addCheese(Cheese cheese) {
+    this.getCheeses().add(cheese);
+  }
 }
