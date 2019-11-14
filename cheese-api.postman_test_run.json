@@ -1,0 +1,42 @@
+{
+  "id": "782a5881-19bc-4a50-b34e-59a9dc2fceae",
+  "name": "cheese-api",
+  "allTests": [],
+  "timestamp": "2019-11-13T06:34:42.379Z",
+  "collection_id": "9582b515-bbc3-41a2-afa2-018862480dcf",
+  "folder_id": 0,
+  "target_type": "collection",
+  "environment_id": "0",
+  "data": [],
+  "delay": 0,
+  "count": 1,
+  "collection": {
+    "id": "9582b515-bbc3-41a2-afa2-018862480dcf",
+    "name": "cheese-api",
+    "order": [],
+    "folders_order": [
+      "b69a1259-309a-4661-b86e-2daefbe2895d",
+      "b63e8bd8-11fc-47df-9af0-c3b934987971",
+      "26aed5fb-f790-40e0-a0e8-0fdc1d940b2b"
+    ],
+    "isFavorite": true
+  },
+  "folder": null,
+  "environment": null,
+  "globals": null,
+  "results": [],
+  "totalPass": 0,
+  "totalFail": 0,
+  "totalTime": 0,
+  "lifecycle": "done",
+  "requests": [
+    {
+      "name": "create category",
+      "id": "431c5993-54ed-4dbc-b1ee-cdaf0bfe0a55",
+      "url": "http://localhost:8080/categories",
+      "time": "2019-11-13T06:34:42.379Z",
+      "testPassFailCounts": {}
+    }
+  ],
+  "synced": false
+}
