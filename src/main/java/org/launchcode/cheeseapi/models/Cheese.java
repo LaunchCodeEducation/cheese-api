@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,11 @@ public class Cheese {
   private Category category;
 
   @JsonBackReference
-  @ManyToMany(mappedBy = "cheeses", fetch = FetchType.EAGER)
+  @ManyToMany(mappedBy = "cheeses", fetch = FetchType.LAZY)
   private List<Menu> menus = new ArrayList<>();
+
+  @PreRemove
+  public void clearMenuAssociations() {
+    this.getMenus().forEach(menu -> menu.getCheeses().remove(this));
+  }
 }
