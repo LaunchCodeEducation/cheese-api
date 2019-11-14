@@ -6,8 +6,10 @@ import org.junit.runner.RunWith;
 import org.launchcode.cheeseapi.IntegrationTestConfig;
 import org.launchcode.cheeseapi.models.Category;
 import org.launchcode.cheeseapi.models.Cheese;
+import org.launchcode.cheeseapi.models.Menu;
 import org.launchcode.cheeseapi.repositories.CategoryRepository;
 import org.launchcode.cheeseapi.repositories.CheeseRepository;
+import org.launchcode.cheeseapi.repositories.MenuRepository;
 import org.launchcode.cheeseapi.utils.TestHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,6 +26,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTestConfig
 @RunWith(SpringRunner.class)
 public class CheeseControllerTest {
+  @Autowired
+  private MenuRepository menuRepository;
+
   @Autowired
   private CheeseRepository cheeseRepository;
 
@@ -74,7 +79,7 @@ public class CheeseControllerTest {
   }
 
   @Test
-  public void testDeleteCheese() throws Exception {
+  public void testDeleteCheeseWithoutMenuAssociation() throws Exception {
     Cheese cheese = TestHelper.createCheese(category, cheeseRepository);
 
     String endpoint = String.format("%s/%d", CheeseController.ENDPOINT, cheese.getId());
@@ -84,5 +89,16 @@ public class CheeseControllerTest {
     mockRequest.perform(delete(endpoint)).andExpect(status().isAccepted());
 
     assertEquals(0, cheeseRepository.count());
+  }
+
+  @Test
+  public void testDeleteCheeseWithMenuAssociation() {
+    Menu menu = TestHelper.createMenu(menuRepository);
+    Cheese cheese = TestHelper.createCheese(cheeseRepository, categoryRepository);
+
+    menu.addCheese(cheese);
+    menuRepository.save(menu);
+
+    cheeseRepository.delete(cheese);
   }
 }
