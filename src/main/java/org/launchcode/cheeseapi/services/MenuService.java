@@ -1,11 +1,11 @@
 package org.launchcode.cheeseapi.services;
 
 import org.launchcode.cheeseapi.models.Cheese;
-import org.launchcode.cheeseapi.models.DTOs.MenuCheeseDTO;
-import org.launchcode.cheeseapi.models.DTOs.MenuDTO;
 import org.launchcode.cheeseapi.models.Menu;
 import org.launchcode.cheeseapi.repositories.CheeseRepository;
 import org.launchcode.cheeseapi.repositories.MenuRepository;
+import org.launchcode.cheeseapi.services.DTOs.MenuCheeseDTO;
+import org.launchcode.cheeseapi.services.DTOs.MenuDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,15 +23,17 @@ public class MenuService {
   private CheeseRepository cheeseRepository;
 
   public Menu createMenu(MenuDTO menuDTO) {
-    Menu newMenu = new Menu();
-    newMenu.setName(menuDTO.getName());
-    newMenu.setDescription(menuDTO.getDescription());
-
-    return menuRepository.save(newMenu);
+    return menuRepository.save(menuDTO.convertToEntity());
   }
 
   public List<Menu> getAllMenus() {
     return menuRepository.findAll();
+  }
+
+  public List<Cheese> getMenuCheeses(long menuId) {
+    List<Cheese> cheeses = cheeseRepository.findByMenuId(menuId);
+
+    return cheeses;
   }
 
   public void addCheeseToMenu(Long menuId, MenuCheeseDTO menuCheeseDTO) {
@@ -41,7 +43,7 @@ public class MenuService {
         .findById(menuCheeseDTO.getCheeseId())
         .orElseThrow(EntityNotFoundException::new);
 
-    menu.getCheeses().add(cheese);
+    menu.addCheese(cheese);
 
     menuRepository.save(menu);
   }

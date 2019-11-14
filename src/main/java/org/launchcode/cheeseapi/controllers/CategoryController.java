@@ -2,8 +2,8 @@ package org.launchcode.cheeseapi.controllers;
 
 import org.launchcode.cheeseapi.controllers.utils.ResponseHelper;
 import org.launchcode.cheeseapi.models.Category;
-import org.launchcode.cheeseapi.models.DTOs.CategoryDTO;
 import org.launchcode.cheeseapi.services.CategoryService;
+import org.launchcode.cheeseapi.services.DTOs.CategoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
