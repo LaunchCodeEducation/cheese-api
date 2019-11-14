@@ -6,13 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,13 +26,14 @@ public class Menu {
   private String description;
 
   @JsonManagedReference
-  @ManyToMany(cascade = CascadeType.ALL)
-  /*
-   * for 415 "content type not accepted" error
-   * requires that that the request body perfectly matches the POJO
-   * since only { name: "" } is sent it fails with this completely unhelpful error
-   * https://stackoverflow.com/a/34417678
-   * */
-  //  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+  @JoinTable(name = "menu_cheeses",
+      joinColumns = @JoinColumn(name = "menu_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "cheese_id", referencedColumnName = "id"))
   private List<Cheese> cheeses = new ArrayList<>();
+
+  public void addCheese(Cheese cheese) {
+    this.getCheeses().add(cheese);
+    cheese.getMenus().add(this);
+  }
 }
