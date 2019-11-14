@@ -1,8 +1,8 @@
 package org.launchcode.cheeseapi.controllers;
 
 import org.launchcode.cheeseapi.controllers.utils.ResponseHelper;
-import org.launchcode.cheeseapi.models.DTOs.MenuCheeseDTO;
-import org.launchcode.cheeseapi.models.DTOs.MenuDTO;
+import org.launchcode.cheeseapi.services.DTOs.MenuCheeseDTO;
+import org.launchcode.cheeseapi.services.DTOs.MenuDTO;
 import org.launchcode.cheeseapi.services.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -52,5 +52,10 @@ public class MenuController {
     } catch (EntityNotFoundException error) {
       return ResponseEntity.status(400).body(error.getMessage());
     }
+  }
+
+  @GetMapping(value = "/{menuId}/cheeses")
+  public ResponseEntity getMenuCheeses(@PathVariable long menuId) {
+    return ResponseEntity.ok(menuService.getMenuCheeses(menuId));
   }
 }
